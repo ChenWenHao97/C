@@ -31,17 +31,17 @@ void sort(pic_node arr[]);
 int find(int who);
 int main()
 {
-    printf("enter the number of vertex:"); 
+    printf("enter the number of vertex:");//输入顶点个数 
     scanf(" %d",&vertex);
 
-    printf("enter the number of edges:");
+    printf("enter the number of edges:");//输入边个数
     scanf(" %d",&edge);
 
-    printf("enter bef,aft,weight:");
+    printf("enter bef,aft,weight:");//输入两点和权值
     for(int i=0;i<edge;i++)
         scanf("%d%d%d",&arr[i].bef,&arr[i].aft,&arr[i].weight);
 
-    sort(arr);
+    sort(arr);//进行排序，求出最小
     pic_node edge_set[20];//边集合
 
     for(int i=0;i<vertex;i++)//初始化点集合，每个集合首先包含自己
@@ -70,8 +70,8 @@ int main()
     {
         if(set[i].flag)
         {
-            for(NODE *j=set[i].head;j!=NULL;j=j->next)
-                printf("%d ",j->data);
+            for(NODE *f=set[i].head;f!=NULL;f=f->next)
+                printf("%d ",f->data);
             putchar('\n');
         }
     }
@@ -111,7 +111,6 @@ int find(int who)
             }
         }
     }
-    fprintf(stderr, "FATAL ERROR: who = %d\n", who);
     return -1;
 }
 
@@ -122,5 +121,6 @@ void add_set(int a,int b)
     
     set[blist].flag = 0;
     (set[alist].tail)->next = set[blist].head;
-    set[alist].tail = set[blist].tail;
+    //将第一个集合的尾部，变成第二个集合的头部
+    set[alist].tail = set[blist].tail;//将两个集合的尾部同步
 }

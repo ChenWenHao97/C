@@ -41,7 +41,7 @@ void prim(AdjMatrix *G,int start)
     int i,e,k,m=0,min=0;
     closedge[start].lowcost=0;
 
-    for(int i=1;i<=G->vexnum;i++)
+    for(int i=1;i<=G->vexnum;i++)//最开始是初始化
     {
         if(i!=start)
         {
@@ -49,10 +49,10 @@ void prim(AdjMatrix *G,int start)
             closedge[i].lowcost=G->arcs[start][i];
         }
     }
-    for(int i=1;i<=G->vexnum-1;i++)
+    for(int i=1;i<=G->vexnum-1;i++)//大循环
     {
         min=INFINITY;
-        for(int j=1;j<=G->vexnum;j++)
+        for(int j=1;j<=G->vexnum;j++)//首先找到制定开始点到全部顶点最小的值
         {
             if(closedge[j].lowcost!=0&&closedge[j].lowcost<min)
             {
@@ -60,9 +60,9 @@ void prim(AdjMatrix *G,int start)
                 min=closedge[j].lowcost;
             }
         }
-        fprintf(stderr, "m=%d\n", m);
-        closedge[m].lowcost=0;
-        for(int k=1;k<=G->vexnum;k++)
+
+        closedge[m].lowcost=0;//标志放入集合中
+        for(int k=1;k<=G->vexnum;k++)//之后用找到最小边的顶点为开始，找出它到所有点最小权值
         {
             if(k!=m&&G->arcs[m][k]<closedge[k].lowcost)//点的任意一个最短
             {

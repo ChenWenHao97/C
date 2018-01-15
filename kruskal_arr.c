@@ -91,14 +91,14 @@ void sort(node arr[])
         }
 }
 
-int FindParent(int n) 
+int FindParent(int n)//查找父节点
 {
 	if (Set[n].parent == n)
 		return n;
 	return FindParent(Set[n].parent);
 }
 
-void Union(int t1, int t2) 
+void Union(int t1, int t2)//进行集合合并，实际就是将父节点改变 
 {
 	int root1 = FindParent(Set[t1].parent),
 		root2 = FindParent(Set[t2].parent);
