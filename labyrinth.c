@@ -8,7 +8,7 @@ typedef struct{
 }offset;
 offset direct[8] = {-1,0,  -1,-1,  0,-1,   1,-1,
                     1,0,   1,1,    0,1,    -1,1};
-
+//8个方向
 
 typedef struct{
     int x;
@@ -43,13 +43,13 @@ int main()
     int top = 0;
     while(top > -1 && !find)
     {
-       // printf("%d",top);
-        position = delete(&top);
-        //printf("55 %d %d \n",position.x,position.y);
+
+        position = delete(&top);//出栈
+
         x = position.x;
         y = position.y;
         dir = position.direct;//储存下一个位置的direct
-        while(dir < 8 && !find)
+        while(dir < 8 && !find)//一个点的8个方向结束，证明要寻找新的点了
         {
             next_x = x + direct[dir].x;
             next_y = y + direct[dir].y;
@@ -58,14 +58,13 @@ int main()
                 ++dir;
                 continue;
             }
-            //printf("63 top is %d,dir is %d\n",top,dir);
 
-            if(next_x == exit_x && next_y == exit_y)
+            if(next_x == exit_x && next_y == exit_y)//找到出口
             {
                 mark[x][y] = 1;
                 position.x = x;
                 position.y = y;
-                add(&top,position);
+                add(&top,position);//入栈
                 find = 1;
             }
             else if(!maze[next_x][next_y] && !mark[next_x][next_y])
@@ -74,8 +73,8 @@ int main()
                 position.x = x;
                 position.y = y;
                 position.direct = dir + 1;  //防止多次进入一个不可以继续的点
-                //printf("71 %d %d \n",position.x,position.y);
-                add(&top,position);
+
+                add(&top,position);//入栈
                 x = next_x;
                 y = next_y;
                 dir= 0 ;//重新遍历8个方向
